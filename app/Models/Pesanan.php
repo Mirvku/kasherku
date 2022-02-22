@@ -24,6 +24,6 @@ class Pesanan extends Model
 
     public function transaksi()
     {
-        return $this->hasOne(Transaksi::class);
+        return $this->hasMany(Transaksi::class);
     }
 }

@@ -211,7 +211,7 @@ class Pesanan extends Component
                     $product = ProductModel::find($doubt['id']);
                 }
 
-                // dd($doubt);
+                // dd($filterCart);
 
 
                 $id = IdGenerator::generate(
@@ -233,7 +233,7 @@ class Pesanan extends Component
                         'menu_id' => $cart['id'],
                         'pelanggan_id' =>  $pelanggan->id,
                         'invoice_number' => $id,
-                        'jumlah' => $filterCart->count(),
+                        'jumlah' => $cart['quantity'],
                         'user_id' => Auth::user()->id,
                     ]);
                 }

@@ -1,7 +1,14 @@
 @section('title', 'Transaksi')
 
 <div class="container">
-    <h1 class="h3 mb-1">Transaksi</h1>
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Transaksi</h1>
+            @if (Auth::user()->role == 'owner')
+                <a href="{{ route('laporan') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fa-solid fa-plus fa-sm text-white-50"></i> Generate Laporan
+                </a>
+            @endif
+        </div>
     <div class="row">
         <div class="card card-body shadow">
             <div class="table-responsive">
@@ -28,14 +35,14 @@
                                         class="btn btn-primary my-2">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a href="#" class="btn btn-info">
+                                    {{-- <a href="#" class="btn btn-info">
                                         <i class="fa fa-pencil-alt"></i>
                                     </a>
                                     <form action="#" method="post" class="d-inline">
                                         <button class="btn btn-danger my-2">
                                             <i class="fa fa-trash"></i>
                                         </button>
-                                    </form>
+                                    </form> --}}
                                 </td>
                             </tr>
                         @empty

@@ -4,7 +4,7 @@ use App\Http\Controllers\EditController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DetailPesanan;
 use App\Http\Controllers\CreateUserController;
-
+use App\Http\Controllers\LaporanController;
 use App\Http\Livewire\Cart;
 use App\Http\Livewire\Menu;
 
@@ -54,6 +54,9 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::get('/create-user/edit/{id}', [CreateUserController::class, 'edit'])->name('edit-user');
     Route::post('/create-user/update/{id}', [CreateUserController::class, 'update']);
     Route::post('/create-user/hapus/{id}', [CreateUserController::class, 'delete']);
+
+    // Generate Laporan
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
 });
 
 // Route::group([], function () {

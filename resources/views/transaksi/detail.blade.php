@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="h3 mb-1 text-gray-800">Detail Transaksi Himawari Uzumaki</h1>
+        <h1 class="h3 mb-1 text-gray-800">Detail Transaksi {{$pelanggan->nama_pelanggan}}</h1>
 
         <div class="row">
 
@@ -21,6 +21,10 @@
                                 <td>{{ $pelanggan->nama_pelanggan }}</td>
                             </tr>
                             <tr>
+                                <th>Total</th>
+                                <td>{{ $transaksi->total }}</td>
+                            </tr>
+                            <tr>
                                 <th>Pesanan</th>
                                 <td>
                                     <table class="table table-bordered text-center">
@@ -28,12 +32,14 @@
                                             <th>No</th>
                                             <th>Menu</th>
                                             <th>Harga</th>
+                                            <th>Banyak</th>
                                         </tr>
                                         @foreach ($pesanan as $item)
                                             <tr>
                                                 <th>{{ $loop->iteration }}</th>
                                                 <th>{{ $item->menu->name }}</th>
                                                 <th>{{ $item->menu->price }}</th>
+                                                <th>{{ $item->jumlah }}</th>
                                             </tr>
                                         @endforeach
                                     </table>
@@ -49,7 +55,7 @@
                 <div class="card mb-2 shadow">
                     <h5 class="card-header text-center">Print Struk</h5>
                     <div class="card-body">
-                        <button class="btn btn-success btn-sm w-100">
+                        <button class="btn btn-success btn-sm w-100" id="print">
                             PRINT
                         </button>
                     </div>

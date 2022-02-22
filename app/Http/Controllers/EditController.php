@@ -23,7 +23,7 @@ class EditController extends Controller
     {
         $request->validate(
             [
-                'name' => 'required|unique:menu|max:100',
+                'name' => 'required|max:100',
                 'image' => 'required',
                 'quantity' => 'required',
                 'price' => 'required',

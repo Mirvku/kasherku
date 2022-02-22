@@ -12,6 +12,7 @@
     <title>Kasher | @yield('title')</title>
     @livewireStyles
     @include('includes.admin.style')
+    @stack('tambah-style')
 
 </head>
 
