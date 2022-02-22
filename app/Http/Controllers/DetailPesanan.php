@@ -21,4 +21,22 @@ class DetailPesanan extends Controller
             'transaksi' => $transaksi,
         ]);
     }
+    public function bayar(Request $request, $id)
+    {
+        $total = Transaksi::find($id);
+        $kembalian = (int) $total->total - (int) $request->bayar;
+
+        $request->validate([
+            'bayar' => 'required'
+        ]);
+
+        $data = $request->all();
+        $data['bayar'] = abs($kembalian);
+
+        $item = Transaksi::findOrFail($id);
+
+        $item->update($data);
+
+        return redirect()->route('transaksi');
+    }
 }

@@ -26,7 +26,7 @@ class Pesanan extends Component
     // public $tax = "0%";
     public $search;
 
-    public $bayar = 0;
+    // public $bayar = 0;
     public $nama_pelanggan;
     public $no_bangku;
 
@@ -180,11 +180,10 @@ class Pesanan extends Component
     public function handleSubmit()
     {
         $cartTotal = \Cart::session(Auth()->id())->getTotal();
-        $payment = $this->bayar;
-        $kembalian = (int) $payment - (int) $cartTotal;
+        // $payment = $this->bayar;
+        // $kembalian = (int) $payment - (int) $cartTotal;
 
-        if ($kembalian >= 0) {
-            DB::beginTransaction();
+        DB::beginTransaction();
 
             try {
                 $allCart = \Cart::session(Auth()->id())->getContent();
@@ -242,7 +241,7 @@ class Pesanan extends Component
                     'invoice_number' => $id,
                     'pesanan_id' => $cart['id'],
                     'total' => $cartTotal,
-                    'bayar' => $payment,
+                    // 'bayar' => $payment,
                     'pelanggan_id' =>  $pelanggan->id,
                     'user_id' => Auth::user()->id,
                 ]);
@@ -260,6 +259,6 @@ class Pesanan extends Component
                 DB::rollback();
                 return session()->flash('error', $th);
             }
-        }
+        
     }
 }

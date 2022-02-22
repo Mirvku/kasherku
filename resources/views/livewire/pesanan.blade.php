@@ -4,7 +4,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Transaksi</h1>
             @if (Auth::user()->role == 'owner')
-                <a href="{{ route('laporan') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                     <i class="fa-solid fa-plus fa-sm text-white-50"></i> Generate Laporan
                 </a>
             @endif
@@ -19,6 +19,7 @@
                             <th>Nama</th>
                             <th>Total</th>
                             <th>Kasir</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -30,6 +31,11 @@
                                 <td>{{ $item->pelanggan->nama_pelanggan }}</td>
                                 <td>@rupiah($item->total)</td>
                                 <td>{{ $item->user->name }}</td>
+                                @if ($item->bayar)
+                                    <td class="text-success">Sudah Bayar</td>
+                                @else
+                                    <td class="text-danger">Belum Bayar</td>
+                                @endif
                                 <td>
                                     <a href="{{ url('/dashboard/detail-transaksi/' . $item->id) }}"
                                         class="btn btn-primary my-2">
@@ -46,7 +52,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <td colspan="5" class="text-center">Tidak ada pesanan</td>
+                            <td colspan="6" class="text-center">Tidak ada pesanan</td>
                         @endforelse
                     </tbody>
                 </table>

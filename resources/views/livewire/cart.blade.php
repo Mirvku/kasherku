@@ -57,13 +57,13 @@
                 <div class="card-body">
                     <form wire:submit.prevent="handleSubmit">
                         <div class="mb-2">
-                            <label for="namaPelanggan" class="form-label">Nama Pemesan</label>
+                            <label for="namaPelanggan" class="form-label" >Nama Pemesan</label>
                             <input wire:model="nama_pelanggan" type="text" class="form-control" id=nama-pemesan"
-                                aria-describedby="emailHelp">
+                                aria-describedby="emailHelp" required>
                         </div>
                         <div>
                             <label for="exampleInputPassword1" class="form-label">Nomor Bangku</label>
-                            <input wire:model="no_bangku" type="number" class="form-control" id="nomor-bangku">
+                            <input wire:model="no_bangku" type="number" class="form-control" id="nomor-bangku" required>
                         </div>
                 </div>
             </div>
@@ -110,22 +110,9 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        <div class="mb-2">
-                            <label class="form-label">Bayar Pesanan</label>
-                            <input wire:model="bayar" type="number" class="form-control" id="bayar"
-                                placeholder="Input pembayaran">
-                            <input type="hidden" value="{{ $total }}" id="total">
-                        </div>
-
                         <p class="font-weight-bold ">Total: <span class="text-success">@rupiah($total)</span>
                         </p>
-                        <p class="font-weight-bold ">Kembalian: <span class="text-danger" id="kembalian"
-                                wire:ignore>Rp.
-                                0
-                            </span>
-                        </p>
-                        <button wire:ignore type="submit" class="btn btn-success btn-sm w-100" id="simpan-bayar"
-                            disabled>
+                        <button type="submit" class="btn btn-success btn-sm w-100" id="simpan-bayar">
                             PESAN
                         </button>
                         </form>
@@ -135,46 +122,3 @@
         </div>
     </div>
 </div>
-
-@push('script-tambahan')
-    <script>
-        bayar.oninput = () => {
-            const totalPembayaran = document.getElementById('bayar').value;
-            const totalBayar = document.getElementById('total').value;
-            const totalKembalian = totalPembayaran - totalBayar;
-
-            console.log(totalBayar);
-            document.getElementById('kembalian').innerHTML = rupiah(totalKembalian);
-
-            const saveButton = document.getElementById('simpan-bayar');
-
-            if (totalKembalian < 0 || totalBayar <= 0) {
-                saveButton.disabled = true;
-            } else {
-                saveButton.disabled = false;
-            }
-        }
-
-
-        const rupiah = (number) => {
-            return new Intl.NumberFormat("id-ID", {
-                style: "currency",
-                currency: "IDR"
-            }).format(number);
-        }
-
-
-        // const rupiah = (angka) => {
-        //     const numberString = angka.toString()
-        //     const split = numberString.split(',')
-        //     const sisa = split[0].length % 3
-        //     let rupiah = split[0].substr(0, sisa)
-        //     const ribuan = split[0].substr(sisa).match(/\d{1,3}/gi)
-        //     if (ribuan) {
-        //         const separator = sisa ? '.' : ''
-        //         rupiah += separator + ribuan.join('.')
-        //     }
-        //     return split[1] != undefined ? rupiah + ',' + split[1] : rupiah
-        // }
-    </script>
-@endpush

@@ -46,6 +46,7 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     // Route Transaksi
     Route::get('/transaksi', Transaksi::class)->name('transaksi');
     Route::get('/detail-transaksi/{id}', [DetailPesanan::class, 'index']);
+    Route::post('/detail-transaksi/bayar/{id}', [DetailPesanan::class, 'bayar']);
 
     // Route Tambah User
     Route::get('/create-user', [CreateUserController::class, 'index'])->name('create-user');
@@ -56,7 +57,7 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::post('/create-user/hapus/{id}', [CreateUserController::class, 'delete']);
 
     // Generate Laporan
-    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan');
+    Route::get('/laporan/{id}', [LaporanController::class, 'index']);
 });
 
 // Route::group([], function () {

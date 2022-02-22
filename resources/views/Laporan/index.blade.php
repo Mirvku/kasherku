@@ -5,9 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    {{-- <link type="text/css" href="{{ asset('css/duh.css') }}"  rel="stylesheet"> --}}
 </head>
 <body>
-    <style>
+    <div class="row w-100">
+        
+    </div>
+    <table class="body-wrap">
+    <tbody>
+        <tr>
+        <td class="container" width="600">
+            <div class="content">
+                <table class="main" width="100%" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                        <td class="content-wrap aligncenter">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tbody><tr>
+                                    <td class="content-block">
+                                        <h2 class="text-center">Terimakasih sudah memesan</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="content-block">
+                                        <table class="invoice">
+                                            <tbody>
+                                                <tr>
+                                                <td>
+                                                    {{ $pelanggan->nama_pelanggan }}
+                                                    <br>
+                                                    {{ $pelanggan->pesanan->invoice_number }}
+                                                    <br>
+                                                    {{ $pelanggan->created_at->format('d F Y ') }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table class="invoice-items" cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                        @foreach ($pesanan as $item)
+                                                        <tr>
+                                                            <td>{{ $item->menu->name }}</td>
+                                                            <td class="alignright">@rupiah($item->menu->price) ({{ $item->jumlah }})</td>
+                                                        </tr>
+                                                        @endforeach
+                                                        <tr class="total">
+                                                        <td class="alignright" width="70%">Total</td>
+                                                        <td class="alignright">@rupiah($transaksi->total )</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </td>
+                                </tr>
+                                <tr class="content-block">
+                                    <td class="text-center">
+                                      {{-- <td class="alignright" width="30%">Total</td> --}}
+                                        Restogether. 123 Tokyo, Japan
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+        </td>
+    </tr>
+</tbody>
+</table>
+<style>
+        /* -------------------------------------
+    GLOBAL
+    A very basic CSS reset
+------------------------------------- */
 * {
     margin: 0;
     padding: 0;
@@ -28,10 +105,14 @@ body {
     line-height: 1.6;
 }
 
+/* Let's make sure all tables have defaults */
 table td {
     vertical-align: top;
 }
 
+/* -------------------------------------
+    BODY & CONTAINER
+------------------------------------- */
 body {
     background-color: #f6f6f6;
 }
@@ -84,17 +165,24 @@ body {
     color: #999;
     padding: 20px;
 }
+
 .footer a {
     color: #999;
 }
-.footer p, .footer a, .footer unsubscribe, .footer td {
+
+.footer p,
+.footer a,
+.footer unsubscribe,
+.footer td {
     font-size: 12px;
 }
 
 /* -------------------------------------
     TYPOGRAPHY
 ------------------------------------- */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     color: #000;
     margin: 40px 0 0;
@@ -120,11 +208,16 @@ h4 {
     font-weight: 600;
 }
 
-p, ul, ol {
+p,
+ul,
+ol {
     margin-bottom: 10px;
     font-weight: normal;
 }
-p li, ul li, ol li {
+
+p li,
+ul li,
+ol li {
     margin-left: 5px;
     list-style-position: inside;
 }
@@ -191,18 +284,22 @@ a {
     text-align: center;
     border-radius: 3px 3px 0 0;
 }
+
 .alert a {
     color: #fff;
     text-decoration: none;
     font-weight: 500;
     font-size: 16px;
 }
+
 .alert.alert-warning {
     background: #f8ac59;
 }
+
 .alert.alert-bad {
     background: #ed5565;
 }
+
 .alert.alert-good {
     background: #1ab394;
 }
@@ -216,15 +313,19 @@ a {
     text-align: left;
     width: 80%;
 }
+
 .invoice td {
     padding: 5px 0;
 }
+
 .invoice .invoice-items {
     width: 100%;
 }
+
 .invoice .invoice-items td {
     border-top: #eee 1px solid;
 }
+
 .invoice .invoice-items .total td {
     border-top: 2px solid #333;
     border-bottom: 2px solid #333;
@@ -235,7 +336,11 @@ a {
     RESPONSIVE AND MOBILE FRIENDLY STYLES
 ------------------------------------- */
 @media only screen and (max-width: 640px) {
-    h1, h2, h3, h4 {
+
+    h1,
+    h2,
+    h3,
+    h4 {
         font-weight: 600 !important;
         margin: 20px 0 5px !important;
     }
@@ -256,7 +361,8 @@ a {
         width: 100% !important;
     }
 
-    .content, .content-wrap {
+    .content,
+    .content-wrap {
         padding: 10px !important;
     }
 
@@ -264,80 +370,6 @@ a {
         width: 100% !important;
     }
 }
-
-</style>
-    <table class="body-wrap">
-    <tbody><tr>
-        <td></td>
-        <td class="container" width="600">
-            <div class="content">
-                <table class="main" width="100%" cellpadding="0" cellspacing="0">
-                    <tbody><tr>
-                        <td class="content-wrap aligncenter">
-                            <table width="100%" cellpadding="0" cellspacing="0">
-                                <tbody><tr>
-                                    <td class="content-block">
-                                        <h2>Terimakasih sudah memesan</h2>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="content-block">
-                                        <table class="invoice">
-                                            <tbody><tr>
-                                                <td>Anna Smith<br>Invoice #12345<br>June 01 2015</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <table class="invoice-items" cellpadding="0" cellspacing="0">
-                                                        <tbody><tr>
-                                                            <td>Service 1</td>
-                                                            <td class="alignright">$ 20.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Service 2</td>
-                                                            <td class="alignright">$ 10.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Service 3</td>
-                                                            <td class="alignright">$ 6.00</td>
-                                                        </tr>
-                                                        <tr class="total">
-                                                            <td class="alignright" width="80%">Total</td>
-                                                            <td class="alignright">$ 36.00</td>
-                                                        </tr>
-                                                    </tbody></table>
-                                                </td>
-                                            </tr>
-                                        </tbody></table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="content-block">
-                                        <a href="#">View in browser</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="content-block">
-                                        Company Inc. 123 Van Ness, San Francisco 94102
-                                    </td>
-                                </tr>
-                            </tbody></table>
-                        </td>
-                    </tr>
-                </tbody></table>
-                <div class="footer">
-                    <table width="100%">
-                        <tbody><tr>
-                            <td class="aligncenter content-block">Questions? Email <a href="mailto:">support@company.inc</a></td>
-                        </tr>
-                    </tbody></table>
-                </div></div>
-        </td>
-        <td>
-        </td>
-    </tr>
-</tbody>
-</table>
-
+    </style>
 </body>
 </html>
