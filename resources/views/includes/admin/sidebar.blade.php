@@ -41,7 +41,7 @@
      <li class="nav-item {{ request()->routeIs('create-user') ? 'active' : '' }}">
          <a class="nav-link" href="{{ route('create-user') }}">
              <i class="fas fa-fw fa-user-gear"></i>
-             <span>Create User</span>
+             <span>User</span>
          </a>
      </li>
 

@@ -1,19 +1,19 @@
 <?php
 
-use App\Http\Controllers\EditController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\DetailPesanan;
-use App\Http\Controllers\CreateUserController;
-use App\Http\Controllers\LaporanController;
-use App\Http\Livewire\Cart;
 use App\Http\Livewire\Menu;
+use App\Http\Livewire\Pesanan;
+use App\Http\Livewire\Transaksi;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Livewire\Coba;
-use App\Http\Livewire\Pesanan;
-use App\Http\Livewire\Transaksi;
+use App\Http\Controllers\DetailPesanan;
+use App\Http\Controllers\EditController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\CreateUserController;
+use App\Http\Controllers\LaporanBulananController;
+
 
 
 
@@ -58,6 +58,8 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
 
     // Generate Laporan
     Route::get('/laporan/{id}', [LaporanController::class, 'index']);
+    Route::get('/laporan-bulanan', [LaporanBulananController::class, 'index'])->name('laporan-bulanan');
+    Route::get('/laporan-bulanan/{tglawal}/{tglakhir}', [LaporanBulananController::class, 'cetakLaporan'])->name('cetak-laporan');
 });
 
 // Route::group([], function () {

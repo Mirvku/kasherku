@@ -17,6 +17,10 @@
                                 <td>{{ $pelanggan->pesanan->invoice_number }}</td>
                             </tr>
                             <tr>
+                                <th>Tanggal Pemesanan</th>
+                                <td>{{ $pelanggan->created_at->format('d F Y ') }}</td>
+                            </tr>
+                            <tr>
                                 <th>Nama Pemesan</th>
                                 <td>{{ $pelanggan->nama_pelanggan }}</td>
                             </tr>
