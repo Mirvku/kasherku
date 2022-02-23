@@ -30,7 +30,7 @@
                                 <td>{{ $item->invoice_number }}</td>
                                 <td>{{ $item->pelanggan->nama_pelanggan }}</td>
                                 <td>@rupiah($item->total)</td>
-                                <td>{{ $item->user->name }}</td>
+                                <td>{{ $item->kasir }}</td>
                                 @if ($item->bayar)
                                     <td class="text-success">Sudah Bayar</td>
                                 @else
@@ -56,6 +56,9 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-center">
+                        {{ $transaksi->links() }}
+                    </div>
             </div>
         </div>
     </div>

@@ -74,11 +74,11 @@
                             <div class="mb-2">
                                 <label class="form-label">Bayar Pesanan</label>
                                 <input type="number" class="form-control" id="bayar" name="bayar" placeholder="Input pembayaran">
-                                <input type="hidden" value="{{ $transaksi->invoice_number  }}"  name="invoice_number">
-                                <input type="hidden" value="{{ $transaksi->pesanan_id  }}"  name="pesanan_id">
+                                {{-- <input type="hidden" value="{{ $transaksi->invoice_number  }}"  name="invoice_number">
+                                <input type="hidden" value="{{ $transaksi->pesanan_id  }}"  name="pesanan_id"> --}}
                                 <input type="hidden" value="{{ $transaksi->total  }}" id="total" name="total">
-                                <input type="hidden" value="{{ $transaksi->pelanggan_id  }}"  name="pelanggan_id">
-                                <input type="hidden" value="{{ $transaksi->user_id  }}"  name="user_id">
+                                {{-- <input type="hidden" value="{{ $transaksi->pelanggan_id  }}"  name="pelanggan_id">
+                                <input type="hidden" value="{{ $transaksi->user_id  }}"  name="user_id"> --}}
                             </div>
 
                             <p class="font-weight-bold ">Total: <span class="text-success">@rupiah($transaksi->total )</span>

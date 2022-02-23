@@ -19,6 +19,7 @@ class CreateMenuTable extends Migration
             $table->string('image');
             $table->integer('quantity');
             $table->integer('price');
+            $table->integer('terjual')->default(0);
             $table->timestamps();
         });
     }

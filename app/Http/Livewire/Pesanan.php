@@ -195,6 +195,7 @@ class Pesanan extends Component
                     ];
                 });
 
+            
 
                 foreach ($filterCart as $cart) {
                     $product = ProductModel::find($cart['id']);
@@ -204,13 +205,13 @@ class Pesanan extends Component
                     }
 
                     $product->decrement('quantity', $cart['quantity']);
+                $product->increment('terjual', $cart['quantity']);
                 }
 
                 foreach ($filterCart as $doubt) {
                     $product = ProductModel::find($doubt['id']);
                 }
-
-                // dd($filterCart);
+           
 
 
                 $id = IdGenerator::generate(
@@ -233,17 +234,16 @@ class Pesanan extends Component
                         'pelanggan_id' =>  $pelanggan->id,
                         'invoice_number' => $id,
                         'jumlah' => $cart['quantity'],
-                        'user_id' => Auth::user()->id,
+                    'kasir' => Auth::user()->name,
                     ]);
                 }
 
                 Transaction::create([
                     'invoice_number' => $id,
                     'pesanan_id' => $cart['id'],
-                    'total' => $cartTotal,
-                    // 'bayar' => $payment,
+                'total' => $cartTotal,
                     'pelanggan_id' =>  $pelanggan->id,
-                    'user_id' => Auth::user()->id,
+                'kasir' => Auth::user()->name,
                 ]);
 
 

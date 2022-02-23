@@ -20,7 +20,8 @@ class CreateTransaksiTable extends Migration
             $table->integer('total');
             $table->unsignedInteger('bayar')->nullable();
             $table->foreignId('pelanggan_id')->constrained('pelanggan');
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('kasir');
+            // $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

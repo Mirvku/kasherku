@@ -15,6 +15,7 @@ class DetailPesanan extends Controller
         $pelanggan = Pelanggan::with('pesanan')->findOrFail($id);
         $pesanan = Pesanan::with(['menu', 'transaksi'])->where('pelanggan_id', $id)->get();
         $transaksi = Transaksi::findOrFail($id);
+
         return view('transaksi.detail', [
             'pelanggan' => $pelanggan,
             'pesanan' => $pesanan,
@@ -23,19 +24,19 @@ class DetailPesanan extends Controller
     }
     public function bayar(Request $request, $id)
     {
-        $total = Transaksi::find($id);
-        $kembalian = (int) $total->total - (int) $request->bayar;
+        $item = Transaksi::find($id);
+        $kembalian = (int) $item->total - (int) $request->bayar;
 
         $request->validate([
             'bayar' => 'required'
         ]);
 
-        $data = $request->all();
-        $data['bayar'] = abs($kembalian);
+        if ($item) {
+            $item->bayar = abs($kembalian);
+            $item->save();
+        }
+        // $data['bayar'] = abs($kembalian);
 
-        $item = Transaksi::findOrFail($id);
-
-        $item->update($data);
 
         return redirect()->route('transaksi');
     }

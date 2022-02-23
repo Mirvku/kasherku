@@ -15,12 +15,12 @@ class CreatePesananTable extends Migration
     {
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('fakultas_id')->constrained('fakultas')->cascadeOnDelete();
             $table->foreignId('menu_id')->constrained('menu');
             $table->foreignId('pelanggan_id')->constrained('pelanggan')->cascadeOnDelete();
             $table->string('invoice_number');
             $table->integer('jumlah');
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('kasir');
+            // $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

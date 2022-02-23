@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
     <!--  All snippets are MIT license http://bootdey.com/license -->
-    <title>Laporan Penjualan - {{ \Carbon\Carbon::now()->format('d F Y ')  }}</title>
+    <title>company invoice - Bootdey.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -28,7 +28,7 @@
         </li>
     @endforeach
       <li class="table-row">
-        <div class="col col-4" data-label="Total: ">@rupiah($total)</div>
+        <div class="col col-4" data-label="Total">@rupiah($total)</div>
      </li>
   </ul>
   <p><small>Restogether. 123 Tokyo, Japan</small></p>
@@ -84,7 +84,7 @@ h2 small {
 .responsive-table .col-4 {
   flex-basis: 25%;
 }
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
   .responsive-table .table-header {
     display: none;
   }
@@ -105,7 +105,7 @@ h2 small {
     flex-basis: 50%;
     text-align: right;
   }
-}
+} */
 
 </style>
 </body>

@@ -10,7 +10,7 @@ class Transaksi extends Component
 {
     public function render()
     {
-        $transaksi = Transaction::with(['pelanggan', 'pesanan', 'user'])->get();
+        $transaksi = Transaction::with(['pelanggan', 'pesanan', 'user'])->paginate(5);
         return view('livewire.pesanan', [
             'transaksi' => $transaksi,
         ])->extends('layouts.admin')
