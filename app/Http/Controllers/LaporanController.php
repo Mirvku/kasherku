@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 use App\Models\Pelanggan;
 use App\Models\Pesanan;
 use App\Models\Transaksi;
 
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class LaporanController extends Controller
 {
@@ -24,14 +27,20 @@ class LaporanController extends Controller
         //     'transaksi' => $transaksi,
         // ]);
 
+        if (Auth::user()->role == 'owner') {
+            $pdf = PDF::loadview('Laporan.index', [
+                'pelanggan' => $pelanggan,
+                'pesanan' => $pesanan,
+                'transaksi' => $transaksi,
+            ]);
 
-        $pdf = PDF::loadview('Laporan.index', [
-            'pelanggan' => $pelanggan,
-            'pesanan' => $pesanan,
-            'transaksi' => $transaksi,
-        ]);
+            return $pdf->setWarnings(false)->download('transaksi-0' . rand(1, 100) . '.pdf');
+        } else {
+            return redirect()->back();
+        }
 
-        return $pdf->setWarnings(false)->download('transaksi-0' . rand(1, 100) . '.pdf');
+
+
 
         // $pdf = PDF::loadHTML('<h1>Test</h1>')->setPaper('a4', 'landscape')->setWarnings(false)->save('myfile.pdf');
         // return $pdf;

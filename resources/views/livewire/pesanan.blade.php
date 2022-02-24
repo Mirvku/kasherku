@@ -18,7 +18,7 @@
                             <th>Invoice</th>
                             <th>Nama</th>
                             <th>Total</th>
-                            <th>Kasir</th>
+                            <th>Waiter</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>

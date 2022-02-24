@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+
 
 use App\Models\Menu as MenuMakanan;
 
@@ -27,7 +29,7 @@ class Menu extends Component
         return view('livewire.product', [
             'products' => MenuMakanan::orderBy('created_at', 'asc')->paginate(4),
         ])->extends('layouts.admin')
-            ->section('content');
+        ->section('content');
     }
 
     // public function previewImage()
@@ -46,23 +48,10 @@ class Menu extends Component
             'price' => 'required|integer',
         ]);
 
-        // $imageName = md5($this->image . microtime() . '.' . 'jpg');
-
-        // Storage::putFileAs(
-        //     'public/images',
-        //     $this->image,
-        //     $imageName,
-        // );
-
         $gambar = $this->image->store(
             'assets/public',
             'public'
         );
-
-        // $data = $request->all();
-        // $data['image'] = $request->file('image')->store(
-        //     'assets/public',  
-        // );
 
         MenuMakanan::create([
             'name' => $this->name,
@@ -83,9 +72,16 @@ class Menu extends Component
 
     public function delete($id)
     {
-        $product = MenuMakanan::findOrFail($id);
-        $product->delete();
 
-        return redirect()->back();
+
+
+        if (Auth::user()->role == 'administrator') {
+            $product = MenuMakanan::findOrFail($id);
+            $product->delete();
+
+            return redirect()->back();
+        } else {
+            return redirect()->back();
+        }
     }
 }

@@ -7,73 +7,106 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\User;
 
+use Illuminate\Support\Facades\Auth;
+
+
 class CreateUserController extends Controller
 {
     use RegistersUsers;
 
     public function index()
     {
-        $user = User::all();
-        return view('create-user.index', compact('user'));
+        if (Auth::user()->role == 'owner') {
+            $user = User::all();
+            return view('create-user.index', compact('user'));
+        } else {
+            return redirect()->back();
+        }
+        
     }
 
     public function create()
     {
-        return view('create-user.create');
+        if (Auth::user()->role == 'owner') {
+            return view('create-user.create');
+        } else {
+            return redirect()->back();
+        }
+        
     }
 
     public function insert(Request $request)
     {
-        $request->validate(
-            [
-                'name' => 'required|unique:users|max:100',
-                'email' => 'required',
-                'role' => 'required',
-                'password' => 'required|min:8|confirmed',
-            ],
-        );
+        if (Auth::user()->role == 'owner') {
+            $request->validate(
+                [
+                    'name' => 'required|unique:users|max:100',
+                    'email' => 'required',
+                    'role' => 'required',
+                    'password' => 'required|min:8|confirmed',
+                ],
+            );
 
-        $data = $request->all();
-        User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role' => $data['role'],
-        ]);
+            $data = $request->all();
+            User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'role' => $data['role'],
+            ]);
 
-        return redirect()->route('create-user');
+            return redirect()->route('create-user');
+        } else {
+            return redirect()->back();
+        }
+        
     }
 
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('create-user.edit', compact('user'));
+        if (Auth::user()->role == 'owner') {
+            $user = User::findOrFail($id);
+            return view('create-user.edit', compact('user'));
+        } else {
+            return redirect()->back();
+        }
+      
     }
 
 
     public function update(Request $request, $id)
     {
-        $request->validate(
-            [
-                'name' => 'required|max:100',
-                'email' => 'required',
-                'role' => 'required',
-            ],
-        );
+        if (Auth::user()->role == 'owner') {
+            $request->validate(
+                [
+                    'name' => 'required|max:100',
+                    'email' => 'required',
+                    'role' => 'required',
+                ],
+            );
 
-        $data = $request->all();
-        $item = User::findOrFail($id);
+            $data = $request->all();
+            $item = User::findOrFail($id);
 
-        $item->update($data);
+            $item->update($data);
 
-        return redirect()->route('create-user');
+            return redirect()->route('create-user');
+        } else {
+            return redirect()->back();
+        }
+  
     }
 
     public function delete($id)
     {
-        $item = User::findOrFail($id);
-        $item->delete();
+        if (Auth::user()->role == 'owner') {
+            $item = User::findOrFail($id);
+            $item->delete();
 
-        return redirect()->route('create-user');
+            return redirect()->route('create-user');
+        } else {
+            return redirect()->back();
+        }
+     
     }
 }

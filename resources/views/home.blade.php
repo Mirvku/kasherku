@@ -10,13 +10,16 @@
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                <a href="{{ route('laporan-bulanan') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                    <i class="fas fa-download fa-sm text-white-50"></i> Generate Laporan
-                </a>
+                @if (Auth::user()->role == 'owner')
+                    <a href="{{ route('laporan-bulanan') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <i class="fas fa-download fa-sm text-white-50"></i> Generate Laporan
+                    </a>
+                @endif
             </div>
 
             <!-- Content Row -->
-            <div class="row">
+            @if (Auth::user()->role == 'owner')
+                <div class="row">
 
                 <!-- Earnings (Monthly) Card Example -->
                 <div class="col-xl-4 col-md-4 mb-4">
@@ -98,6 +101,9 @@
                     </div>
                 </div>
             </div>
+            @else
+            <h4 class="text-gray-800">Selamat Datang {{ Auth::user()->name }}</h4>
+            @endif
 
 
         </div>

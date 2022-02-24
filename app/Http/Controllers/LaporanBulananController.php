@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Transaksi;
 use App\Models\Menu;
@@ -20,19 +21,16 @@ class LaporanBulananController extends Controller
             return $buyDetail->price * $buyDetail->terjual;
         });
 
+        if (Auth::user()->role == 'owner') {
+            $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true,])->loadview('Laporan.cetak', [
+                'report' => $report,
+                'total' => $total,
+            ]);
 
-        // return view('Laporan.cetak', [
-        //     'report' => $report,
-        //     'total' => $total,
-        // ]);
-
-
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true,])->loadview('Laporan.cetak', [
-            'report' => $report,
-            'total' => $total,
-        ]);
-
-        return $pdf->setWarnings(false)->download('transaksi-0' . rand(1, 100) . '.pdf');
+            return $pdf->setWarnings(false)->download('transaksi-0' . rand(1, 100) . '.pdf');
+        } else {
+            return redirect()->back();
+        }
     }
 
     public function cetakLaporan($tglawal, $tglakhir)

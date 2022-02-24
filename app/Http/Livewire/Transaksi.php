@@ -15,5 +15,6 @@ class Transaksi extends Component
             'transaksi' => $transaksi,
         ])->extends('layouts.admin')
             ->section('content');
+
     }
 }

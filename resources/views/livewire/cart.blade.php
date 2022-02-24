@@ -63,7 +63,14 @@
                         </div>
                         <div>
                             <label for="exampleInputPassword1" class="form-label">Nomor Bangku</label>
-                            <input wire:model="no_bangku" type="number" class="form-control" id="nomor-bangku" required>
+                            <select name="country" wire:model="no_bangku" class="custom-select">
+                                <option value='' disabled selected>Pilih nomor bangku</option>
+                                @for($i = 1; $i <= 20; $i++)
+                                    <option value={{ $i }}>{{ $i }}</option>
+                                @endfor
+                            </select>
+                            {{-- <label for="exampleInputPassword1" class="form-label">Nomor Bangku</label>
+                            <input wire:model="no_bangku" type="number" class="form-control" id="nomor-bangku" required> --}}
                         </div>
                 </div>
             </div>

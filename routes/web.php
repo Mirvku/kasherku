@@ -57,9 +57,9 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::post('/create-user/hapus/{id}', [CreateUserController::class, 'delete']);
 
     // Generate Laporan
-    Route::get('/laporan/{id}', [LaporanController::class, 'index']);
-    Route::get('/laporan-bulanan', [LaporanBulananController::class, 'index'])->name('laporan-bulanan');
-    Route::get('/laporan-bulanan/{tglawal}/{tglakhir}', [LaporanBulananController::class, 'cetakLaporan'])->name('cetak-laporan');
+    Route::get('/laporan/{id}', [LaporanController::class, 'index']); // Untuk struk
+    Route::get('/laporan-bulanan', [LaporanBulananController::class, 'index'])->name('laporan-bulanan'); // Untuk laporan penjualan
+    // Route::get('/laporan-bulanan/{tglawal}/{tglakhir}', [LaporanBulananController::class, 'cetakLaporan'])->name('cetak-laporan');
 });
 
 // Route::group([], function () {
