@@ -21,16 +21,13 @@ class LaporanBulananController extends Controller
             return $buyDetail->price * $buyDetail->terjual;
         });
 
-        if (Auth::user()->role == 'owner') {
-            $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true,])->loadview('Laporan.cetak', [
-                'report' => $report,
-                'total' => $total,
-            ]);
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true,])->loadview('Laporan.cetak', [
+            'report' => $report,
+            'total' => $total,
+        ]);
 
-            return $pdf->setWarnings(false)->download('transaksi-0' . rand(1, 100) . '.pdf');
-        } else {
-            return redirect()->back();
-        }
+        return $pdf->setWarnings(false)->download('laporan-0' . rand(1, 100) . '.pdf');
+    
     }
 
     public function cetakLaporan($tglawal, $tglakhir)

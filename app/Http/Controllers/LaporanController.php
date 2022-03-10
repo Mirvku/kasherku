@@ -27,17 +27,14 @@ class LaporanController extends Controller
         //     'transaksi' => $transaksi,
         // ]);
 
-        if (Auth::user()->role == 'owner') {
-            $pdf = PDF::loadview('Laporan.index', [
-                'pelanggan' => $pelanggan,
-                'pesanan' => $pesanan,
-                'transaksi' => $transaksi,
-            ]);
+        $pdf = PDF::loadview('Laporan.index', [
+            'pelanggan' => $pelanggan,
+            'pesanan' => $pesanan,
+            'transaksi' => $transaksi,
+        ]);
 
-            return $pdf->setWarnings(false)->download('transaksi-0' . rand(1, 100) . '.pdf');
-        } else {
-            return redirect()->back();
-        }
+        return $pdf->setWarnings(false)->download('transaksi-0' . rand(1, 100) . '.pdf');
+        
 
 
 
